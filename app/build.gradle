@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        applicationId "inhouse.movein"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+ext {
+    JUNIT_VERSION = '4.12'
+    DAGGER_VERSION = '2.4'
+}
+dependencies {
+    final AUTO_VALUE_VERSION = '1.2'
+    def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.google.android.gms:play-services:9.2.1'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    testCompile 'junit:junit:4.12'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'com.artemzin.rxjava:proguard-rules:1.1.0.0'
+    compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.1'
+    compile 'com.google.dagger:dagger:2.4'
+    compile 'com.jakewharton.timber:timber:4.1.2'
+    apt 'com.ryanharter.auto.value:auto-value-gson:0.4.2'
+    provided 'com.jakewharton.auto.value:auto-value-annotations:1.2-update1'
+    apt "com.google.auto.value:auto-value:$AUTO_VALUE_VERSION"
+    apt 'com.squareup:javapoet:1.7.0' // https://github.com/rharter/auto-value-parcel/issues/64
+    //   apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
+    apt daggerCompiler
+    testApt daggerCompiler
+    androidTestApt daggerCompiler
+    compile 'javax.annotation:jsr250-api:1.0'
+    compile 'javax.inject:javax.inject:1'
+    testCompile "junit:junit:$JUNIT_VERSION"
+    //  testApt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.google.maps.android:android-maps-utils:0.4+'
+    compile 'com.android.support:multidex:1.0.1'
+    // Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+}
+apply plugin: 'com.google.gms.google-services'
